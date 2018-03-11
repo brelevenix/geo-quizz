@@ -1,7 +1,9 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 # Python 2.7
 # Extract data from OSM and converts it to a json file
 # Each commune has the following format
-# {"lat": 48.812, "lng": -3.297, "name": "Penvénan"}
+# {"lat": 48.679, "lng": -3.523, "name": "Ploumilliau"}
 
 import json
 import requests
@@ -21,7 +23,7 @@ def extract_overpass(overpass_url, overpass_request):
     r = requests.get(url)
     return (r.json())
 
-data = extract_overpass(URL, overpass_request)
+data = extract_overpass(URL, OVERPASS_REQUEST)
 
 communes = []
 for elt in data["elements"]:
