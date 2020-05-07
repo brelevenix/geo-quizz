@@ -34,6 +34,7 @@ s://www.openstreetmap.org/copyright">OpenStreetMap</a>'  // Attribution
 A geodata file must be adapted for each quizz.
 It is based on geojson file with extension
 ```
+var geo =
 {
 	"type": "FeatureCollection",
 	"features": [{
@@ -52,6 +53,7 @@ It is based on geojson file with extension
 		}
 	}]
 }
+;
 ```
 Each geojson feature must contain the following properties:
 * name: name of the entity to be guessed
