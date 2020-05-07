@@ -17,6 +17,7 @@ Quiz based on geographical data
 A configuration file must be adapted for each quizz:
 ```
 var params = {
+      "distance": 3200, // distance in meter when the solution is ok (for touch screens)
       "minZoom": 9,  // minimal Zoom set when diplaing the map
       "maxZoom": 12, // maximal Zoom 
       "nbGuess": 20, // number og Guess for the Quizz
@@ -53,15 +54,15 @@ It is based on geojson file with extension
 }
 ```
 Each geojson feature must contain the following properties:
-* name: name of the entity to be guesses
+* name: name of the entity to be guessed
 * center: center of the geojson object
 
 ### Tregor Islands
-Based on the Top20 Tregor islands callsified by their surface
+Based on the Top20 Tregor islands classified by their surface
 Data extracted from OpenStreetMap
 
 ### Brittany Islands
-Based on the Top20 Brittany islands callsified by their surface
+Based on the Top20 Brittany islands clasified by their surface
 Data extracted from OpenStreetMap
 
 
