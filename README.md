@@ -40,7 +40,6 @@ var geo =
 	"features": [{
 		"type": "Feature",
 		"properties": {
-			"type": "multipolygon",
 			"name": "Les Abers",
 			"center": {
 				"lat": 48.57979,
@@ -48,8 +47,8 @@ var geo =
 			}
 		},
 		"geometry": {
-			"type": "Point",
-			"coordinates": [-4.59898, 48.56332]
+			"type": "multipolygon",
+			"coordinates": [[[[-4.59898, 48.56332], ....[-4.59898, 48.56332]]]]
 		}
 	}]
 }
