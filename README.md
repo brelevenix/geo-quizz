@@ -9,8 +9,8 @@ Quiz based on geographical data
 ## Code structure
 * [css directory to store CSS files](css)
 * [config directory to store configuration files](config)
-* [geodata directory to store geodata files](config)
-* [images directory to store CSS files](images)
+* [geodata directory to store geodata files](geodata)
+* [images directory to store images files](images)
 * [javascript directory to store javascript files](javascript)
 
 ## Configuration file
