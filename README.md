@@ -67,4 +67,12 @@ Data extracted from OpenStreetMap
 
 
 ## Import Data from OSM
-python osm2communes.py > communes.json
+To be provided
+
+#### Cool tools to be used for data checking
+* [Geosjon Validator](http://geojsonlint.com/)
+* [Geojson tool](http://geojson.io/)
+
+### OSM import
+* osmium
+* JOSM
