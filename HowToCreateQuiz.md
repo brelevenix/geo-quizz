@@ -4,8 +4,8 @@
 [File to be modified](values/myquiz.geojson)
 
 ### May options to gather such data
-* Create your own geojson file from sctrach !
-* Get data from OpenStreetMap
+* Create your own geojson file from scratch !
+* Get data from [OpenStreetMap](https://www.openstreetmap.org/)
 * Using JOSM or QGIS tool
 
 Tutorials to come !
