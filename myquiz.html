@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        
+	<title>GeoQuiz, un jeu pour découvrir la géographie de la Bretagne</title>
+        
+	<meta name="author" content="Brelevenix, David Peter">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="GeoQuiz est un site pour tester votre connaissance sur la Bretagne">
+        <meta name="keywords" content="quiz, jeu, géographie, LTC, Bretagne, Trégor, open source, open data">
+
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="GeoQuiz, un jeu pour découvrir la Bretagne">
+        <meta property="og:description" content="GeoQuiz est un jeu pour tester votre connaissance sur la géographie de la Bretagne.">
+
+        <link rel="stylesheet" href="css/leaflet.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/leaflet.awesome-markers.min.css">
+        <link rel="stylesheet" href="css/animate.min.css">
+        <link rel="stylesheet" href="css/geoquiz.css">
+	
+	<script src="geodata/myquiz.js"></script>
+	<script src="config/config_myquiz.js"></script>
+
+	<script src="javascript/jquery.min.js"></script>
+        <script src="javascript/leaflet.js"></script>
+        <script src="javascript/leaflet.awesome-markers.min.js"></script>
+        <script src="javascript/lodash.min.js"></script>
+
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="panel"><i class="fa fa-spinner fa-pulse"></i> <i>Chargement en cours</i></div>
+        <div id="dialog">
+		<h1 id="dialogTitle"><img src=images/  alt=""></h1>
+            <div id="dialogContent">
+                <ul class="fa-ul">
+			<li><i class="fa-li fa fa-location-arrow"></i>Mon beau quiz</li>
+                    <li><i class="fa-li fa fa-search-plus"></i>Zoomer pour plus de précisions.</li>
+                    <li><i class="fa-li fa fa-trophy"></i>Gagner des points bonus de rapidité.</li>
+                </ul>
+            </div>
+            <p class="buttons">
+                <button type="button" id="start"><i class="fa fa-hand-o-right"></i> <span id="dialogLabel">Jouer !</span></button>
+            </p>
+        </div>
+        <div id="points"></div>
+        <script src="javascript/geoquiz.js"></script>
+    </body>
+</html>
