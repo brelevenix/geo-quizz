@@ -1,11 +1,21 @@
 var params = {
-      "distance": "{{ distance }}",
-      "minZoom": "{{ minZoom }}",
-      "maxZoom": "{{ maxZoom }}",
-      "nbGuess": "{{ nbGuess }}",
-      "centerLat": "{{ centerLat }}",
-      "centerLng": "{{ centerLng }}", 
-      "localStorage": "{ localStorage }}",
-      "tilesServer": "{{ tilesServer }}",
-      "tilesAttribution": '{{ tilesAttribution }}'
+      "distance": {% if distance %}"{{ distance }}",
+                  {% else %}"3200",
+                  {% endif %}
+      "maxZoom": {% if maxZoom %}"{{ maxZoom }}",
+                 {% else %}"18",
+                 {% endif %}
+      "nbGuess": {% if nbGuess %}"{{ nbGuess }}",
+                 {% else %}20,
+                 {% endif %}
+      "localStorage": {% if localStorage %}"{{ localStorage }}",
+                      {% else %}"highscore_myquiz",
+                      {% endif %}
+      "tilesServer": {% if tilesServer %}"{{ tilesServer }}",
+                     {% else %}"https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png",
+                     {% endif %}
+      "tilesAttribution": {% if tilesAttribution %}'{{ tilesAttribution }}',
+                        {% else %}'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; <br>Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                  {% endif %}
 };
+

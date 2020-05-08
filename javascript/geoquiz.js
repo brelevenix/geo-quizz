@@ -40,9 +40,7 @@ Quizzity.prototype.initializeInterface = function() {
     attribution += params.tilesAttribution;
 
     this.layer = L.tileLayer(params.tilesServer, {
-	attribution: attribution,
-	minZoom: Quizzity.minZoom,
-	maxZoom: Quizzity.maxZoom,
+	attribution: attribution
         }
     ).addTo(this.map);
 
@@ -73,6 +71,9 @@ Quizzity.prototype.initializeInterface = function() {
 
     // Register click event on layer    
     this.jsonLayer.on("click", _.bind(this.userClick, this));
+
+    this.bounds = this.jsonLayer.getBounds();	
+
 
     // Register events on map (outside the geojosn object for smartphone/tablets)
 //    this.map.on('click', _.bind(this.userClick, this));
@@ -216,9 +217,14 @@ Quizzity.prototype.showMarkers = function(entity, gameOver) {
 };
 
 Quizzity.prototype.resetMapView = function() {
-    this.map.setView(Quizzity.mapCenter, Quizzity.minZoom, {
+ this.map.fitBounds(this.bounds, {
         animation: true
     });
+/*
+	this.map.setView(Quizzity.mapCenter, Quizzity.minZoom, {
+        animation: true
+    });
+   */
 };
 
 Quizzity.prototype.showEntities = function() {
@@ -235,7 +241,7 @@ Quizzity.prototype.userClick = function(e) {
         return true;
     }
     draw_time = (new Date().getTime()) - this.startTime;
-    // Remove 2s
+    // Remove 1s
     time = draw_time - 1000;
     if (time<0) {time=1;};
 
@@ -325,14 +331,31 @@ $.fn.extend({
 
 $(document).ready(function() {
     var game = new Quizzity();
+    var centroid, polygon;
+    
 
     game.initializeInterface();
+
 
     var entities=[];
     for (var i=0; i<geo.features.length; i++) {
         var entity={};
-        entity.lat = geo.features[i].properties.center.lat;
-        entity.lng = geo.features[i].properties.center.lng;
+	
+
+	if (geo.features[i].geometry.type === 'MultiPolygon')    {
+           polygon = turf.multiPolygon(geo.features[i].geometry.coordinates);
+	    centroid = turf.centroid(polygon);
+	}
+        else if (geo.features[i].geometry.type === 'Polygon'){ 
+           polygon = turf.polygon(geo.features[i].geometry.coordinates);
+	    centroid = turf.centroid(polygon);
+	}
+	else if (geo.features[i].geometry.type === 'Point'){
+	    centroid = geo.features[i].geometry.coordinates;
+	}
+
+        entity.lat = centroid.geometry.coordinates[1];
+        entity.lng = centroid.geometry.coordinates[0];
         entity.name = geo.features[i].properties.name;
         entity.image = geo.features[i].properties.image;
         entities.push(entity);
