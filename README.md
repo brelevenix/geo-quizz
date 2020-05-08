@@ -63,7 +63,16 @@ Data extracted from OpenStreetMap
 
 
 ## Import Data from OSM
-To be provided
+### Import administrative limits (eg French cities)
+overpass API does not support geojson export
+It is possible to get data by exporting them manually, but it may take time
+
+Script exmple to fetch limit for Lannion city in France (22113 is the INSEE code)
+```
+wget http://download.geofabrik.de/europe/france/bretagne-latest.osm.pbf
+osmium tags-filter bretagne-latest.osm.pbf r/ref:INSEE=22113 -o 22113.osm
+osmium export 22113.osm --geometry-types=polygon -o 22113.geojson
+```
 
 #### Cool tools to be used for data checking
 * [Geosjon Validator](http://geojsonlint.com/)
