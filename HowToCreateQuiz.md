@@ -14,7 +14,7 @@ Tutorials to come !
 [File to be modified](values/myquiz.yaml)
 
 ## Step3 => Generate the files
-``` generate_quiz.py ``` 
+``` python3 generate_quiz.py ``` 
 
 Congrats: you have 3 new files generated:
 * [configuration file](config/config_myquiz.js) 
