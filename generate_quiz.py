@@ -29,11 +29,17 @@ def render_file(template_file_name, value_file_name, output_file_name):
         if extension == "yaml":
             config = yaml.load(value_file, Loader=yaml.FullLoader)
         else:
-            config = json.load(value_file)
+            geojson = json.load(value_file)
+
         file_loader = FileSystemLoader("templates")
         env = Environment(loader=file_loader)
         template = env.get_template(template_file_name)
-        output = template.render(config)
+
+        if extension == "yaml":
+            output = template.render(config)
+        else:
+            output = template.render(geojson=geojson)
+        
         file_value = open(output_file_name, "w")
         file_value.write(output)
         file_value.close()
