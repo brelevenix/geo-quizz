@@ -7,6 +7,7 @@
 * Create your own geojson file from sctrach !
 * Get data from OpenStreetMap
 * Using JOSM or QGIS tool
+
 Tutorials to come !
 
 ## Step2 => Generate value configuration file
@@ -15,9 +16,9 @@ Tutorials to come !
 ## Step3 => Generate the files
 ``` generate_quiz.py ``` 
 
-Congrats: you have 3 new fies generated:
+Congrats: you have 3 new files generated:
 * [configuration file](config/config_myquiz.js) 
-* [geodata fiele](geodata/myquiz.js)
+* [geodata file](geodata/myquiz.js)
 * [html file](myquiz.html)
 
 You can tests your quiz using [HTML file] myquiz.html)
