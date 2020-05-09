@@ -4,7 +4,7 @@
 /*global L*/
 /*global geo*/
 
-"use strict";
+//"use strict";
 
 var GUESS = null;
 var score_partiel = 0;
@@ -30,9 +30,17 @@ var Quizzity = function() {
     this.mapElements = []; // map elements
 };
 
+
+
 Quizzity.prototype.initializeInterface = function() {
     var attribution = 'Réalisé par brelevenix, inspiré par <a href="https://david-peter.de/quizzity/">David Peter</a>i<br>';
-    // Set up the map and tiles
+    var geojsonCircleOptions = {
+      radius: 10,
+      opacity: 0.8,
+      fillOpacity: 0.5
+    };
+	
+	// Set up the map and tiles
     this.map = L.map("map", {
         doubleClickZoom: false
     });
@@ -44,8 +52,14 @@ Quizzity.prototype.initializeInterface = function() {
         }
     ).addTo(this.map);
 
+    this.jsonLayer =  L.geoJson(geo, {
+      style: style_default,
 
-    this.jsonLayer =  L.geoJson(geo, { style: style_default, onEachFeature:function (feature, layer) {
+      pointToLayer: function (feature, latlng) {
+         return L.circleMarker(latlng, geojsonCircleOptions);
+      },
+
+      onEachFeature:function (feature, layer) {
 
         layer.on("mouseover", function () {
             this.setStyle(style_over);
@@ -345,17 +359,23 @@ $(document).ready(function() {
 	if (geo.features[i].geometry.type === 'MultiPolygon')    {
            polygon = turf.multiPolygon(geo.features[i].geometry.coordinates);
 	    centroid = turf.centroid(polygon);
+		 entity.lat = centroid.geometry.coordinates[1];
+        entity.lng = centroid.geometry.coordinates[0];
+
 	}
         else if (geo.features[i].geometry.type === 'Polygon'){ 
            polygon = turf.polygon(geo.features[i].geometry.coordinates);
 	    centroid = turf.centroid(polygon);
+ entity.lat = centroid.geometry.coordinates[1];
+        entity.lng = centroid.geometry.coordinates[0];
+
 	}
 	else if (geo.features[i].geometry.type === 'Point'){
-	    centroid = geo.features[i].geometry.coordinates;
+		entity.lat = geo.features[i].geometry.coordinates[1];
+        entity.lng = geo.features[i].geometry.coordinates[0];
+
 	}
 
-        entity.lat = centroid.geometry.coordinates[1];
-        entity.lng = centroid.geometry.coordinates[0];
         entity.name = geo.features[i].properties.name;
         entity.image = geo.features[i].properties.image;
         entities.push(entity);

@@ -19,7 +19,7 @@ A configuration file must be adapted for each quizz:
 var params = {
       "distance": 3200, // distance in meter when the solution is ok (for touch screens)
       "maxZoom": 12, // maximal Zoom 
-      "nbGuess": 20, // number og Guess for the Quizz
+      "nbGuess": 20, // number of Guess for the Quizz
       "localStorage": "highscore_geoquiz_iles",   // variable for local storage
       "tilesServer": "https://stamen-tiles-a.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png",   // Server tile
       "tilesAttribution": 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; <br>Map data &copy; <a href="http
@@ -33,21 +33,42 @@ Note this configuration file can be generated automatically (cf [HowToCreateQuiz
 A geodata file must be adapted for each quizz.
 It is based on [geojson](https://geojson.org/) file.
 For each feature, the `properties.name` field must be populated
-For each feature, the `geometry.type` must be `Polygon` or `MultiPolgyon`
+For each feature, the `geometry.type` must be `Polygon` or `MultiPolgyon` or `Point`
 ```javascript
 var geo =
 {
 	"type": "FeatureCollection",
 	"features": [{
-		"type": "Feature",
-		"properties": {
-			"name": "Les Abers",
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-3.458799, 48.7322183]
+			},
+			"properties": {
+				"name": "Lannion"
+			}
 		},
-		"geometry": {
-			"type": "MultiPolygon",
-			"coordinates": [[[[-4.59898, 48.56332], ....[-4.59898, 48.56332]]]]
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-2.047687, 48.4539775]
+			},
+			"properties": {
+				"name": "Dinan"
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [-4.1024782, 47.9960325]
+			},
+			"properties": {
+				"name": "Quimper"
+			}
 		}
-	}]
+	]
 }
 ;
 ```
@@ -67,12 +88,17 @@ Data extracted from OpenStreetMap
 overpass API does not support geojson export
 It is possible to get data by exporting them manually, but it may take time
 
-Script exmple to fetch limit for Lannion city in France (22113 is the INSEE code)
+Script example to fetch limit for Lannion city in France (22113 is the INSEE code)
 ```
 wget http://download.geofabrik.de/europe/france/bretagne-latest.osm.pbf
 osmium tags-filter bretagne-latest.osm.pbf r/ref:INSEE=22113 -o 22113.osm
 osmium export 22113.osm --geometry-types=polygon -o 22113.geojson
 ```
+
+### Import City coordinates
+* Nominatim API => returns different possibilities
+* Datagouv API => City coordinates are not located at the right position
+* Overpass API => return coordinates for both the limit and the center
 
 #### Cool tools to be used for data checking
 * [Geosjon Validator](http://geojsonlint.com/)

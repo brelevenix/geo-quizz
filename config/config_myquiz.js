@@ -3,7 +3,7 @@ var params = {
                   
       "maxZoom": "18",
                  
-      "nbGuess": 20,
+      "nbGuess": 3,
                  
       "localStorage": "highscore_geoquiz_myquiz",
                       

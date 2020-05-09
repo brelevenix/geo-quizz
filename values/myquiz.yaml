@@ -1,4 +1,5 @@
 ---
+nbGuess: 3
 localStorage: "highscore_geoquiz_myquiz"
 title: "Geoquiz sur mon territoire"
 geodata_file: "myquiz.js"
