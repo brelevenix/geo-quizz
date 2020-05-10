@@ -32,7 +32,7 @@ var Quizzity = function() {
 };
 
 Quizzity.prototype.initializeInterface = function() {
-    var attribution = 'Réalisé par brelevenix, inspiré par <a href="https://david-peter.de/quizzity/">David Peter</a>i<br>';
+    var attribution = 'Réalisé par <a href="https://github.com/brelevenix/geoquiz">brelevenix</a>, inspiré par <a href="https://david-peter.de/quizzity/">David Peter</a>i<br>';
     var geojsonCircleOptions = {
       radius: 10,
       opacity: 0.8,
