@@ -4,7 +4,7 @@
 /*global L*/
 /*global geo*/
 
-//"use strict";
+"use strict";
 
 var GUESS = null;
 var score_partiel = 0;
@@ -12,25 +12,24 @@ var style_default = {
     "color": "#000000",
     "fillColor": "#0000OO",
     "weight": 3,
-    "opaentity": 1
+    "opacity": 1
 };
 var style_over = {
     "color": "#FFFFFF",
     "fillColor": "#FFFFFF",
     "weight": 5,
-    "opaentity": 1
+    "opacity": 1
 };
 var style_ok = {
     "color": "#00ff00",
     "weight": 5,
-    "opaentity": 1
+    "opacity": 1
 };
+
 var Quizzity = function() {
     this.entities = []; // entities to guess
     this.mapElements = []; // map elements
 };
-
-
 
 Quizzity.prototype.initializeInterface = function() {
     var attribution = 'Réalisé par brelevenix, inspiré par <a href="https://david-peter.de/quizzity/">David Peter</a>i<br>';
@@ -40,7 +39,7 @@ Quizzity.prototype.initializeInterface = function() {
       fillOpacity: 0.5
     };
 	
-	// Set up the map and tiles
+    // Set up the map and tiles
     this.map = L.map("map", {
         doubleClickZoom: false
     });
@@ -52,6 +51,7 @@ Quizzity.prototype.initializeInterface = function() {
         }
     ).addTo(this.map);
 
+    // Create geojson layer
     this.jsonLayer =  L.geoJson(geo, {
       style: style_default,
 
@@ -68,7 +68,7 @@ Quizzity.prototype.initializeInterface = function() {
             var img= feature.properties.image;
             if (img != null){
                 var html='<img src="images/' + img + '" width ="200" alt="image">';
-                html +='<br>&copy; '+feature.properties.source_image;
+                html +='<br>&copy; '+ feature.properties.source;
                 layer.bindPopup(L.popup({closeButton: false}).setContent(html));
       	        layer.openPopup();
             }
@@ -86,11 +86,10 @@ Quizzity.prototype.initializeInterface = function() {
     // Register click event on layer    
     this.jsonLayer.on("click", _.bind(this.userClick, this));
 
+    // Get layer bounds
     this.bounds = this.jsonLayer.getBounds();	
 
-
     // Register events on map (outside the geojosn object for smartphone/tablets)
-//    this.map.on('click', _.bind(this.userClick, this));
     $("#start").click(_.bind(this.newGame, this));
 	
     // HTML elements
@@ -127,7 +126,7 @@ Quizzity.prototype.newGame = function() {
                 name: entity.name, //+ ', ' +decodeURIComponent(countryName)
                 position: L.latLng(entity.lat, entity.lng),
                 image: entity.image,
-                source: entity.source_image
+                source: entity.source
             };
         }, this)
         .value();
@@ -231,22 +230,17 @@ Quizzity.prototype.showMarkers = function(entity, gameOver) {
 };
 
 Quizzity.prototype.resetMapView = function() {
- this.map.fitBounds(this.bounds, {
+    this.map.fitBounds(this.bounds, {
         animation: true
     });
-/*
-	this.map.setView(Quizzity.mapCenter, Quizzity.minZoom, {
-        animation: true
-    });
-   */
 };
 
 Quizzity.prototype.showEntities = function() {
-	var i, latlng;
-	for (i = 0; i < Quizzity.dbEntities.length; i++) {
-		latlng = L.latLng(Quizzity.dbEntities[i].lat, Quizzity.dbEntities[i].lng);
-		L.circleMarker(L.latLng(Quizzity.dbEntities[i].lat, Quizzity.dbEntities[i].lng), {radius: 5, color: '#000'}).addTo(this.map);
-	}
+    var i, latlng;
+    for (i = 0; i < Quizzity.dbEntities.length; i++) {
+	latlng = L.latLng(Quizzity.dbEntities[i].lat, Quizzity.dbEntities[i].lng);
+	L.circleMarker(L.latLng(Quizzity.dbEntities[i].lat, Quizzity.dbEntities[i].lng), {radius: 5, color: '#000'}).addTo(this.map);
+    }
 };			
 
 Quizzity.prototype.userClick = function(e) {
@@ -286,7 +280,7 @@ Quizzity.prototype.userClick = function(e) {
     // Green if OK, Red if no good
     var color_result = '#008800';  // DarkGreen
     if (points < 20)
-       color_result = '#8B0000';  // DarkRed
+        color_result = '#8B0000';  // DarkRed
     pointsHTML += '<b><font size="4" color="' + color_result + '">' + entity.name + '</b><br>' + points.toString();
 
     score_partiel += entity.points;
@@ -303,8 +297,7 @@ Quizzity.prototype.userClick = function(e) {
 
         // Show next entity in panel
         this.showCity();
-
-   } else {
+    } else {
         // Game over!
         this.showPoints();
         _.delay(_.bind(function() {
@@ -345,43 +338,41 @@ $.fn.extend({
 
 $(document).ready(function() {
     var game = new Quizzity();
-    var centroid, polygon;
+    var centroid;
+    var polygon;
     
-
     game.initializeInterface();
 
-
+    // Initialize internal database
     var entities=[];
-    for (var i=0; i<geo.features.length; i++) {
-        var entity={};
-	
-
-	if (geo.features[i].geometry.type === 'MultiPolygon')    {
-           polygon = turf.multiPolygon(geo.features[i].geometry.coordinates);
+    geo.features.forEach((geofeature) => {
+	var entity={};
+	if (geofeature.geometry.type === 'MultiPolygon')    {
+            polygon = turf.multiPolygon(geofeature.geometry.coordinates);
+            centroid = turf.centroid(polygon);
+	    entity.lat = centroid.geometry.coordinates[1];
+            entity.lng = centroid.geometry.coordinates[0];
+	}
+        else if (geofeature.geometry.type === 'Polygon'){ 
+            polygon = turf.polygon(geofeature.geometry.coordinates);
 	    centroid = turf.centroid(polygon);
-		 entity.lat = centroid.geometry.coordinates[1];
-        entity.lng = centroid.geometry.coordinates[0];
-
+            entity.lat = centroid.geometry.coordinates[1];
+            entity.lng = centroid.geometry.coordinates[0];
 	}
-        else if (geo.features[i].geometry.type === 'Polygon'){ 
-           polygon = turf.polygon(geo.features[i].geometry.coordinates);
-	    centroid = turf.centroid(polygon);
- entity.lat = centroid.geometry.coordinates[1];
-        entity.lng = centroid.geometry.coordinates[0];
-
+	else if (geofeature.geometry.type === 'Point'){
+            entity.lat = geofeature.geometry.coordinates[1];
+            entity.lng = geofeature.geometry.coordinates[0];
 	}
-	else if (geo.features[i].geometry.type === 'Point'){
-		entity.lat = geo.features[i].geometry.coordinates[1];
-        entity.lng = geo.features[i].geometry.coordinates[0];
-
-	}
-
-        entity.name = geo.features[i].properties.name;
-        entity.image = geo.features[i].properties.image;
-        entities.push(entity);
-    }
+    
+	// Get properties
+        entity.name = geofeature.properties.name;
+        entity.image = geofeature.properties.image;
+        
+	// Do not include 'trap' entities
+	if (!("trap" in geofeature.properties))
+	    entities.push(entity);
+    });
 console.log(entities);
     Quizzity.dbEntities = entities;
     $('#dialog').show();
 });
-
