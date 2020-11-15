@@ -66,7 +66,7 @@ The following fields are mandatory:
 * `nbGuess' : Number of guess for the quiz
 * `locations' : GeoJSON file or list of names (eg city name)
 
-'''
+```
 ---
 title: "Mon beau quiz"
 subtitle: "Trouver les 5 villes"
@@ -75,16 +75,16 @@ nbGuess: 3
 locations: 
   - Lannion
   - Paris
-'''
+```
 
 The following fields are optional:
 * `distance' : distance in meters accepted when using touch screens
 * `maxZoom' : maximum zoom (eg to avoid to view solutions on detailed zooms)
 * `tilesServer' : Tile server URL
 * `tilesAttribution' : Attribution for the Tile Server
-* `traps' : List of "traps" to  
+* `traps' : List of "traps" that will not be requested in the quiz, but displayed  
 
-'''
+```
 map:
   distance: 3200
   maxZoom: 12 
@@ -93,4 +93,4 @@ map:
 s://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 traps:
   - Lannion
-'''
+```
