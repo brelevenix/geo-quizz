@@ -1,8 +1,14 @@
 ---
+title: "Mon beau quiz"
+subtitle: "Trouver les 5 villes"
+short: "quiz"
 nbGuess: 3
-localStorage: "highscore_geoquiz_myquiz"
-title: "Geoquiz sur mon territoire"
-geodata_file: "myquiz.js"
-config_file: "config_myquiz.js"
-quiz_title: "Mon beau quiz"
-
+map:
+  distance: 3200
+  maxZoom: 12 
+  tilesServer: "https://stamen-tiles-a.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png"
+  tilesAttribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; <br>Map data &copy; <a href="http
+s://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+locations: myquiz.geojson
+traps:
+  - Lannion
