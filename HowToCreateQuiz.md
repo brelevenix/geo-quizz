@@ -60,11 +60,11 @@ following constraint: file name must be consistent with `short` field:
 if `short` is 'myquiz', file name must be 'myquiz.yaml'
 
 The following fields are mandatory:
-* `title' : Title of the quiz => will appear as the title in the first window
-* `subtitle' : subtitle of the quiz => will appear as the first line in the first window
-* `short' : short to be used for the HTML page => no space
-* `nbGuess' : Number of guess for the quiz
-* `locations' : GeoJSON file or list of names (eg city name)
+* `title` : Title of the quiz => will appear as the title in the first window
+* `subtitle` : subtitle of the quiz => will appear as the first line in the first window
+* `short` : short to be used for the HTML page => no space
+* `nbGuess` : Number of guess for the quiz
+* `locations` : GeoJSON file or list of names (eg city name)
 
 ```
 ---
@@ -78,11 +78,11 @@ locations:
 ```
 
 The following fields are optional:
-* `distance' : distance in meters accepted when using touch screens
-* `maxZoom' : maximum zoom (eg to avoid to view solutions on detailed zooms)
-* `tilesServer' : Tile server URL
-* `tilesAttribution' : Attribution for the Tile Server
-* `traps' : List of "traps" that will not be requested in the quiz, but displayed  
+* `distance` : distance in meters accepted when using touch screens
+* `maxZoom` : maximum zoom (eg to avoid to view solutions on detailed zooms)
+* `tilesServer` : Tile server URL
+* `tilesAttribution` : Attribution for the Tile Server
+* `traps` : List of "traps" that will not be requested in the quiz, but displayed  
 
 ```
 map:
