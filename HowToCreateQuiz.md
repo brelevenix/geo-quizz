@@ -32,7 +32,7 @@ Congrats: you have 3 new files generated:
 * [geodata file](geodata/myquiz.js)
 * [html file](myquiz.html)
 
-You can test your quiz using [HTML file] myquiz.html)
+You can test your quiz using [HTML file](myquiz.html)
 
 ## Using a list of locations names
 
